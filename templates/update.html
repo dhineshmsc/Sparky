@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" > -->
+    {% load static %}
+<link href="{% static 'bootstrap.css' %}" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <div class="col-12">
+        <nav class="navbar p-2" style="background-color: #e3f2fd;">
+            <label for=""><h3>TASK UPDATE</h3></label>
+            <div>
+                <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+            </div>
+            
+        </nav>
+    </div>
+
+    {% if task %}
+    <div class="container">
+        <div class="row">
+            <form method="POST">
+                {% csrf_token %}
+                <table id="example-basic" style="width: 100%;background: #fff" >        
+                    <thead>
+                        <tr>
+                            <th style="font-weight: bold; background: #fff;font-size: 14px">TASK NU</th>
+                            <th style="font-weight: bold; background: #fff;font-size: 14px">Assign Date</th>
+                            <th style="font-weight: bold; background: #fff;font-size: 14px">TASK DESC</th>
+                            <th style="font-weight: bold; background: #fff;font-size: 14px">STATUS</th>
+                            <th style="font-weight: bold; background: #fff;font-size: 14px">update</th>
+                            <th style="font-weight: bold; background: #fff;font-size: 14px">Remark</th>
+                            <th style="font-weight: bold; background: #fff;font-size: 14px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>    
+                        {% for item in task %}           
+                        <tr>
+                            <td style="font-size: 14px;">{{item.ticket}}</td>
+                            <td style="font-size: 14px;">{{item.update}}</td>
+                            <td style="font-size: 14px;">{{item.task}}</td>
+                            <td style="font-size: 14px;">{{item.status|default:'-'}}</td>
+                            <td style="font-size: 14px;">
+                                <select class="form-select" name="user_update">
+                                    <option value="On Progress">On Progress</option>
+                                    <option value="Completed">Completed</option>
+                                  </select>
+                            </td>
+                            <td style="font-size: 14px;">
+                                <input class="form-control" type="text" required name="remark">
+                                
+                            </td>
+                            <td style="font-size: 14px;">
+                                <button type="submit" id="submit" class="btn btn-primary ">Update</button>
+                            </td>
+                        </tr>            
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                
+            </form>
+            
+        </div>
+    </div>
+    
+    {% endif %}
+    
+</div>
+</body>
+</html>
